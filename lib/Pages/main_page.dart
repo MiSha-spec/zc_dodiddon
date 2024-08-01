@@ -26,6 +26,66 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  // Функция для показа диалогового окна
+  void _showAddTaskDialog() {
+    DateTime? selectedDateTime; // Переменная для хранения выбранной даты и времени
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          // Используем Dialog вместо AlertDialog для настройки ширины
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Container(
+            width: 400, // Устанавливаем ширину диалогового окна
+            padding: const EdgeInsets.all(20), // Добавляем отступ
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Название задачи',
+                  ),
+                ),
+                const TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Описание задачи',
+                  ),
+                ),
+                // Поле для выбора даты и времени
+                Padding(
+                  padding: const EdgeInsets.only(top: 16), // Отступ для кнопки
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      selectedDateTime = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime(2100),
+                      );
+                      if (selectedDateTime != null) {
+                        // После выбора даты показываем диалог выбора времени
+                        selectedDateTime = (await showTimePicker(
+                          // ignore: use_build_context_synchronously
+                          context: context,
+                          initialTime: TimeOfDay.fromDateTime(selectedDateTime!),
+                        )) as DateTime?;
+                      }
+                    },
+                    child: const Text('Выбрать дедлайн'),
+                  ),
+                ),
+                // Добавьте поля для даты и времени, если нужно
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,6 +130,10 @@ class _MainPageState extends State<MainPage> {
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _showAddTaskDialog,
+        child: const Icon(Icons.add),
       ),
     );
   }
