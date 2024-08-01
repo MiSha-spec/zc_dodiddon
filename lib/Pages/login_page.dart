@@ -31,9 +31,58 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: [ 
+               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/_2.png', // Замените на правильный путь к файлу
+                    height: 60, // Устанавливаем высоту изображения
+                  ),
+                  const SizedBox(width: 8),
+                  // Добавляем текст "zerocoder"
+                  const Text(
+                    'zerocoder',
+                    style: TextStyle(
+                      fontSize: 62,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white, // Белый цвет текста
+                    ),
+                  ),
+                ],
+              ),
+
+
+
+              RichText(
+                text: TextSpan(
+                  style: const TextStyle(
+                    fontSize: 48,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: 'Do',
+                      style: TextStyle(
+                        color: DoDidDoneTheme.lightTheme.colorScheme.primary,
+                      ),
+                    ),
+                    const TextSpan(
+                      text: 'Did',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    TextSpan(
+                      text: 'Done',
+                      style: TextStyle(
+                        color: DoDidDoneTheme.lightTheme.colorScheme.secondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              
               const Text(
-                'DoDidDone',
+                'Вход',
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
